@@ -16,7 +16,7 @@ let propostaSelezionata = null;
         const { data: profilo, error: dbError } = await _supabase
             .from('staff_users')
             .select('permessi')
-            .eq('username', usernameDaCercare) 
+            .eq('username', usernameDaCercare)
             .single();
 
         if (dbError || !profilo) {
@@ -25,16 +25,16 @@ let propostaSelezionata = null;
         }
 
         const paginaCorrente = window.location.pathname.split('/').pop() || 'index.html';
-        const mappePermessi = { 
+        const mappePermessi = {
             'proposte.html': 'P',
-            'staff.html': 'C',    
-            'riunioni.html': 'R', 
+            'staff.html': 'C',
+            'riunioni.html': 'R',
             'bilancio.html': 'E',
             'notizie.html': 'N',
             'credenziali.html': 'A',
             'gestioneproposte.html': 'G'
         };
-        
+
         const letteraNecessaria = mappePermessi[paginaCorrente];
         if (letteraNecessaria && !profilo.permessi.includes(letteraNecessaria)) {
             window.location.replace('staff.html');
@@ -45,7 +45,7 @@ let propostaSelezionata = null;
         sessionStorage.setItem('userPermessi', profilo.permessi);
         document.body.style.visibility = "visible";
         document.body.style.opacity = "1";
-        
+
         caricaTutteLeProposte();
     } catch (err) {
         window.location.replace('login.html');
@@ -62,14 +62,14 @@ async function caricaTutteLeProposte() {
 
     const pendingContainer = document.getElementById('pending-container');
     const storicoBody = document.getElementById('storico-proposte-body');
-    
+
     pendingContainer.innerHTML = '';
     storicoBody.innerHTML = '';
 
     data.forEach(p => {
         const nomeVisualizzato = p.username ? p.username.replace('.', ' ').toUpperCase() : "Sconosciuto";
         const dataFormattata = new Date(p.data_proposta).toLocaleDateString('it-IT');
-        
+
         if (p.stato === 'In Attesa') {
             const card = document.createElement('div');
             card.className = 'proposta-card';
@@ -129,43 +129,98 @@ async function eliminaProposta(id, titolo) {
 
 function apriValutazione(id, decisione, titolo, feedbackPrecedente) {
     propostaSelezionata = id;
-    document.getElementById('modalTitle').innerText = `Gestione: ${titolo}`;
-    document.getElementById('modalInfo').innerText = `Stato Attuale: ${decisione.toUpperCase()}`;
-    document.getElementById('feedbackTesto').value = feedbackPrecedente || "";
-    
-    const footer = document.querySelector('#modalDecisione div div:last-child');
+
+    const mTitle = document.getElementById('modalTitle');
+    const mInfo = document.getElementById('modalInfo');
+    const fText = document.getElementById('feedbackTesto');
+    const modal = document.getElementById('modalDecisione');
+
+    if (mTitle) mTitle.innerText = `Gestione: ${titolo}`;
+    if (mInfo) mInfo.innerText = `Stato Attuale: ${decisione.toUpperCase()}`;
+    if (fText) fText.value = feedbackPrecedente || "";
+
+    const modalContent = modal.querySelector('.modal-content') || modal.firstElementChild;
+    let footer = document.getElementById('modal-footer-actions');
+
+    if (!footer) {
+        footer = modalContent.lastElementChild;
+    }
+
     footer.innerHTML = `
-        <button onclick="chiudiModal()" style="padding:10px 15px; border-radius:4px; font-weight:700; font-size:0.7rem; cursor:pointer; border:1px solid rgba(255,255,255,0.1); background:transparent; color:#888;">ANNULLA</button>
-        <div style="display:flex; gap:10px;">
-            <button onclick="cambiaDecisioneEConferma('Approvata')" style="padding:10px 15px; border-radius:4px; font-weight:700; font-size:0.7rem; cursor:pointer; border:1px solid rgba(46, 204, 113, 0.4); background:rgba(46, 204, 113, 0.1); color:#2ecc71;">APPROVA</button>
-            <button onclick="cambiaDecisioneEConferma('Rifiutata')" style="padding:10px 15px; border-radius:4px; font-weight:700; font-size:0.7rem; cursor:pointer; border:1px solid rgba(231, 76, 60, 0.4); background:rgba(231, 76, 60, 0.1); color:#e74c3c;">RIFIUTA</button>
+        <div style="display:flex; justify-content: flex-end; gap:10px; margin-top:20px;">
+            <button type="button" onclick="chiudiModal()" style="padding:10px 15px; border-radius:4px; font-weight:700; font-size:0.7rem; cursor:pointer; border:1px solid rgba(255,255,255,0.1); background:transparent; color:#888;">ANNULLA</button>
+            <div style="display:flex; gap:10px;">
+                <button type="button" onclick="cambiaDecisioneEConferma('Approvata')" style="padding:10px 15px; border-radius:4px; font-weight:700; font-size:0.7rem; cursor:pointer; border:1px solid rgba(46, 204, 113, 0.4); background:rgba(46, 204, 113, 0.1); color:#2ecc71;">APPROVA</button>
+                <button type="button" onclick="cambiaDecisioneEConferma('Rifiutata')" style="padding:10px 15px; border-radius:4px; font-weight:700; font-size:0.7rem; cursor:pointer; border:1px solid rgba(231, 76, 60, 0.4); background:rgba(231, 76, 60, 0.1); color:#e74c3c;">RIFIUTA</button>
+            </div>
         </div>
     `;
-    
-    document.getElementById('modalDecisione').style.display = 'flex';
+
+    modal.style.display = 'flex';
+}
+
+function chiudiModal() {
+    const modal = document.getElementById('modalDecisione');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+    const fText = document.getElementById('feedbackTesto');
+    if (fText) fText.value = '';
+    propostaSelezionata = null;
+}
+
+async function notificaApprovazioneTelegram(propostaId) {
+    try {
+        const { data: p, error } = await _supabase
+            .from('proposte_consiglieri')
+            .select('*')
+            .eq('id', propostaId)
+            .single();
+
+        if (error || !p) return;
+
+        const nomeVisualizzato = p.username ? p.username.replace('.', ' ').toUpperCase() : "SCONOSCIUTO";
+        const messaggio = `<b>🗣 𝗡𝘂𝗼𝘃𝗮 𝗽𝗿𝗼𝗽𝗼𝘀𝘁𝗮</b>\n\n📖 <b>${p.titolo.toUpperCase()}</b>\nPresentata da » ${nomeVisualizzato}\n\n${p.link_documento}`;
+
+        await _supabase.functions.invoke('send-telegram-messaggio', {
+            body: {
+                messaggio: messaggio,
+                chat_id: "-1003653282093",
+                parse_mode: 'HTML',
+                reply_markup: {
+                    inline_keyboard: [[{
+                        text: "Leggi 📖",
+                        url: p.link_documento
+                    }]]
+                }
+            }
+        });
+    } catch (err) {
+        console.error("Errore invio notifica Telegram:", err);
+    }
 }
 
 async function cambiaDecisioneEConferma(decisione) {
+    if (!propostaSelezionata) return;
     const feedback = document.getElementById('feedbackTesto').value.trim();
 
     const { error } = await _supabase
         .from('proposte_consiglieri')
-        .update({ 
-            stato: decisione, 
-            feedback_direzione: feedback 
+        .update({
+            stato: decisione,
+            feedback_direzione: feedback
         })
         .eq('id', propostaSelezionata);
 
     if (!error) {
+        if (decisione === 'Approvata') {
+            await notificaApprovazioneTelegram(propostaSelezionata);
+        }
+
         await inviaLog("Gestione Proposte", `Atto ID ${propostaSelezionata} impostato su ${decisione}`);
         chiudiModal();
         caricaTutteLeProposte();
     }
-}
-
-function chiudiModal() {
-    document.getElementById('modalDecisione').style.display = 'none';
-    document.getElementById('feedbackTesto').value = '';
 }
 
 async function inviaLog(azione, dettagli = "") {

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function handleLogin(event) {
     event.preventDefault();
-    
+
     const usernameInput = document.getElementById('username').value.trim();
     const passwordInput = document.getElementById('password').value.trim();
     const errorDisplay = document.getElementById('errorMessage');
@@ -57,9 +57,9 @@ async function handleLogin(event) {
         }
 
         sessionStorage.setItem('staffAccess', 'true');
-        sessionStorage.setItem('loggedUser', userData.username); 
+        sessionStorage.setItem('loggedUser', userData.username);
         sessionStorage.setItem('userPermessi', userData.permessi || "");
-        
+
         inviaLog("Sistema: Login effettuato", userData.username, `Permessi: ${userData.permessi || "Nessuno"}`);
 
         const p = userData.permessi || "";

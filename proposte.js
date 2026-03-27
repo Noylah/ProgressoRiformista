@@ -148,7 +148,7 @@ async function caricaPropostePersonali() {
         tr.innerHTML = `
             <td>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="color:#d4af37; font-size:0.7rem;">${p.feedback_direzione ? '▼' : '○'}</span>
+                    <span style="color:#32a2e0; font-size:0.7rem;">${p.feedback_direzione ? '▼' : '○'}</span>
                     <span class="proposta-link-table">${p.titolo}</span>
                 </div>
             </td>
@@ -168,9 +168,9 @@ async function caricaPropostePersonali() {
             <td colspan="4" style="padding: 0; vertical-align: top; border-top: none;"> 
                 <div class="feedback-content" style="padding: 20px 25px;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <strong style="color:#d4af37; font-size:0.65rem; letter-spacing:1.5px; text-transform:uppercase; opacity: 0.9;">✧ Riscontro Direzione</strong>
+                        <strong style="color:#32a2e0; font-size:0.65rem; letter-spacing:1.5px; text-transform:uppercase; opacity: 0.9;">✧ Riscontro Direzione</strong>
                         <a href="${p.link_documento}" target="_blank" class="btn-gold-action" 
-                           style="text-decoration:none; font-size: 0.6rem; padding: 6px 15px; height: auto; line-height: 1; border-radius: 4px; box-shadow: 0 2px 10px rgba(212,175,55,0.2);">APRI DOCUMENTO ↗</a>
+                           style="text-decoration:none; font-size: 0.6rem; padding: 6px 15px; height: auto; line-height: 1; border-radius: 4px; box-shadow: 0 2px 10px rgba(50,162,224,0.2);">APRI DOCUMENTO ↗</a>
                     </div>
                     <div style="color:#bbb; font-size: 0.85rem; line-height: 1.5; margin: 0;">
                         ${p.feedback_direzione ? p.feedback_direzione.trim() : "<i>Nessun commento aggiuntivo registrato.</i>"}

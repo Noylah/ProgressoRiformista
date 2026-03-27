@@ -60,7 +60,7 @@ async function inviaLog(azione, dettagli = "") {
         const { data: { session } } = await _supabase.auth.getSession();
         const username = session?.user?.email ? session.user.email.split('@')[0].toUpperCase() : "Sistema/Sconosciuto";
 
-        const messaggioFormattato = `🦅 *Pactum Patriae*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
+        const messaggioFormattato = `🦅 *Progresso Riformista*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
 
         await _supabase.functions.invoke('send-telegram-messaggio', {
             body: { messaggio: messaggioFormattato },
@@ -80,7 +80,7 @@ async function inviaReportTelegram(range, entrate, uscite) {
     const saldo = entrate - uscite;
     const emojiSaldo = saldo >= 0 ? "✅" : "⚠️";
     
-    const messaggio = `🦅 *Pactum Patriae*\nʀᴇᴘᴏʀᴛ ᴇᴄᴏɴᴏᴍɪᴄᴏ ꜱᴇᴛᴛɪᴍᴀɴᴀʟᴇ\n\n📅 *ᴘᴇʀɪᴏᴅᴏ:* ${range}\n\n💰 *ᴇɴᴛʀᴀᴛᴇ:* + € ${entrate.toFixed(2)}\n💸 *ᴜꜱᴄɪᴛᴇ:* - € ${uscite.toFixed(2)}\n\n${emojiSaldo} *ʙɪʟᴀɴᴄɪᴏ:* € ${saldo.toFixed(2)}`;
+    const messaggio = `🦅 *Progresso Riformista*\nʀᴇᴘᴏʀᴛ ᴇᴄᴏɴᴏᴍɪᴄᴏ ꜱᴇᴛᴛɪᴍᴀɴᴀʟᴇ\n\n📅 *ᴘᴇʀɪᴏᴅᴏ:* ${range}\n\n💰 *ᴇɴᴛʀᴀᴛᴇ:* + € ${entrate.toFixed(2)}\n💸 *ᴜꜱᴄɪᴛᴇ:* - € ${uscite.toFixed(2)}\n\n${emojiSaldo} *ʙɪʟᴀɴᴄɪᴏ:* € ${saldo.toFixed(2)}`;
     
     try {
         const { data, error } = await _supabase.functions.invoke('send-telegram-broadcast', {
@@ -140,9 +140,9 @@ async function fetchBilancio() {
             const divider = document.createElement('tr');
             
             divider.innerHTML = `
-                <td colspan="5" style="background: ${isSettimanaAttuale ? 'rgba(212,175,55,0.15)' : 'rgba(212,175,55,0.08)'}; padding: 12px 20px; border-left: 4px solid ${isSettimanaAttuale ? '#d4af37' : 'rgba(212,175,55,0.3)'};">
+                <td colspan="5" style="background: ${isSettimanaAttuale ? 'rgba(50,162,224,0.15)' : 'rgba(50,162,224,0.08)'}; padding: 12px 20px; border-left: 4px solid ${isSettimanaAttuale ? '#32a2e0' : 'rgba(50,162,224,0.3)'};">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="color:${isSettimanaAttuale ? '#fff' : '#d4af37'}; font-weight:600; font-family:'Crimson Pro'; letter-spacing:1px; font-size:0.9rem;">
+                        <span style="color:${isSettimanaAttuale ? '#fff' : '#32a2e0'}; font-weight:600; font-family:'Crimson Pro'; letter-spacing:1px; font-size:0.9rem;">
                             ${isSettimanaAttuale ? '✧ SETTIMANA ATTUALE' : 'SETTIMANA: ' + range.toUpperCase()}
                         </span>
                         <div style="display: flex; align-items: center; gap: 15px;">

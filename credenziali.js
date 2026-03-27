@@ -77,7 +77,7 @@ async function fetchUtenti() {
         tr.innerHTML = `
             <td>
                 <input type="text" value="${u.username}" class="minimal-input" 
-                    style="background:transparent; border:none; color:#d4af37; font-weight:bold; width:100%;" 
+                    style="background:transparent; border:none; color:#32a2e0; font-weight:bold; width:100%;" 
                     onchange="aggiornaUsername(${u.id}, this.value, '${u.username}')">
             </td>
             <td style="text-align: center;">
@@ -104,7 +104,7 @@ async function fetchUtenti() {
 function creaBottone(userId, lettera, attivo, label, username) {
     const stileBase = `width: 35px; height: 35px; border-radius: 6px; cursor: pointer; font-weight: 800; border: 1px solid; transition: all 0.2s;`;
     const stileStato = attivo 
-        ? `background: #d4af37; color: #1a1a1a; border-color: #d4af37;` 
+        ? `background: #32a2e0; color: #1a1a1a; border-color: #32a2e0;` 
         : `background: transparent; color: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.1);`;
     
     return `<button title="${label}" onclick="togglePermesso(${userId}, '${lettera}', '${username}')" style="${stileBase} ${stileStato}">${lettera}</button>`;
@@ -182,7 +182,7 @@ async function inviaLog(azione, dettagli = "") {
     try {
         const { data: { session } } = await _supabase.auth.getSession();
         const username = session?.user?.email ? session.user.email.split('@')[0].toUpperCase() : "SISTEMA";
-        const messaggioFormattato = `🦅 *Pactum Patriae*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
+        const messaggioFormattato = `🦅 *Progresso Riformista*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
         await _supabase.functions.invoke('send-telegram-messaggio', {
             body: { messaggio: messaggioFormattato }
         });

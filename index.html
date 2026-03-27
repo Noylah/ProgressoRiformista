@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>ʜᴏᴍᴇ • Pactum Patriae</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;1,600&family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>ʜᴏᴍᴇ • Progresso Riformista</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;1,600&family=Public+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="icon" href="img/favicon.png?v=2" type="image/png">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 
     <nav class="navbar">
         <div class="nav-left">
             <a href="#" class="logo-link">
-                <img src="img/LogoPP.jpg" alt="Logo" class="logo-img">
-                <span class="brand-text">Pactum Patriae</span>
+                <img src="img/favicon.png?v=2" alt="Logo" class="logo-img">
+                <span class="brand-text">Progresso Riformista</span>
             </a>
         </div>
         <div class="nav-center">
@@ -26,11 +30,12 @@
                 <li><a href="dirigenza.html" class="menu-link">Dirigenza</a></li>
                 <li><a href="sede.html" class="menu-link">Sede</a></li>
                 <li><a href="contatti.html" class="menu-link">Contatti</a></li>
-                <li><a href="https://docs.google.com/document/d/1ZfzqJzl2AwkSH_iclinc4FSuGN071srbUYL6rFPKOmc/edit?tab=t.0" target="_blank" class="menu-link">Statuto</a></li>
+                <li><a href="https://docs.google.com/document/d/1ZfzqJzl2AwkSH_iclinc4FSuGN071srbUYL6rFPKOmc/edit?tab=t.0"
+                        target="_blank" class="menu-link">Statuto</a></li>
             </ul>
         </div>
         <div class="nav-right">
-            <a href="https://t.me/PactumPatriaeNT" class="link-telegram">Telegram</a>
+            <a href="https://t.me/ProgressoRiformistaNT" class="link-telegram">Telegram</a>
             <a href="login.html" class="link-telegram">Staff</a>
             <a href="affiliati.html" class="btn-affiliati">Affiliati</a>
         </div>
@@ -39,7 +44,7 @@
     <header class="hero">
         <div class="hero-content">
             <span class="badge">ZEROROLEPLAY</span>
-            <h1>Pactum Patriae</h1>
+            <h1>Progresso Riformista</h1>
             <p>Prima la patria!</p>
             <div class="hero-buttons">
                 <a href="affiliati.html" class="btn-hero btn-gold">Diventa un Affiliato</a>
@@ -51,7 +56,8 @@
     <section class="news-section">
         <h2>Notizie</h2>
         <div class="news-grid" id="news-grid">
-            <div class="loading-status" style="color: rgba(255,255,255,0.5); text-align: center; grid-column: 1/-1; padding: 40px;">
+            <div class="loading-status"
+                style="color: rgba(255,255,255,0.5); text-align: center; grid-column: 1/-1; padding: 40px;">
                 Caricamento comunicati in corso...
             </div>
         </div>
@@ -60,9 +66,10 @@
     <div id="dynamicModal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal()">&times;</span>
-            
+
             <div id="modalImageContainer" style="display: none; margin-bottom: 25px;">
-                <img id="modalImage" src="https://images.weserv.nl/?url=${encodeURIComponent(n.immagine_url)}" alt="News Image">
+                <img id="modalImage" src="https://images.weserv.nl/?url=${encodeURIComponent(n.immagine_url)}"
+                    alt="News Image">
             </div>
 
             <span class="modal-badge" id="modalBadge">BADGE</span>
@@ -77,9 +84,9 @@
                 titolo: "La Nostra Storia",
                 badge: "CRONACHE DEL PARTITO",
                 contenuto: `
-                    <p>Le radici di <strong>Pactum Patriae</strong> affondano nell'8 luglio 2025, quando i vertici di Prima l'Orizzonte e forze indipendenti diedero vita a un progetto per restaurare l'integrità politica di un tempo.</p>
+                    <p>Le radici di <strong>Progresso Riformista</strong> affondano nell'8 luglio 2025, quando i vertici di Prima l'Orizzonte e forze indipendenti diedero vita a un progetto per restaurare l'integrità politica di un tempo.</p>
                     <p>Dopo grandi successi elettorali, il percorso subì una brusca interruzione a ottobre. Ma il vero valore non si spegne.</p>
-                    <p>Il 25 gennaio 2026 segna la rinascita definitiva: nasce <strong>Pactum Patriae</strong> dalla guida di <strong>Andrea Isidoro Zicli</strong>. La nostra missione è ribaltare una classe politica corrotta e clientelare, agendo nell'unico interesse della Nazione.</p>
+                    <p>Il 25 gennaio 2026 segna la rinascita definitiva: nasce <strong>Progresso Riformista</strong> dalla guida di <strong>Andrea Isidoro Zicli</strong>. La nostra missione è ribaltare una classe politica corrotta e clientelare, agendo nell'unico interesse della Nazione.</p>
                 `
             }
         };
@@ -87,36 +94,36 @@
         const modal = document.getElementById('dynamicModal');
 
         function openDynamicModal(data) {
-    document.getElementById('modalName').innerText = data.titolo;
-    document.getElementById('modalBadge').innerText = data.badge || "COMUNICATO";
+            document.getElementById('modalName').innerText = data.titolo;
+            document.getElementById('modalBadge').innerText = data.badge || "COMUNICATO";
 
-    const contenutoProcessato = data.contenuto
-        .replace(/\n/g, '<br>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    document.getElementById('modalBody').innerHTML = contenutoProcessato;
+            const contenutoProcessato = data.contenuto
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            document.getElementById('modalBody').innerHTML = contenutoProcessato;
 
-    const imgContainer = document.getElementById('modalImageContainer');
-    const imgTag = document.getElementById('modalImage');
-    let url = data.immagine_url || data.image;
+            const imgContainer = document.getElementById('modalImageContainer');
+            const imgTag = document.getElementById('modalImage');
+            let url = data.immagine_url || data.image;
 
-    if (url) {
-        if (url.includes('imgur.com')) {
-            url = url.replace('imgur.com', 'i.imgur.com');
-            if (!url.match(/\.(jpg|jpeg|png|gif)$/)) {
-                url += '.jpg';
+            if (url) {
+                if (url.includes('imgur.com')) {
+                    url = url.replace('imgur.com', 'i.imgur.com');
+                    if (!url.match(/\.(jpg|jpeg|png|gif)$/)) {
+                        url += '.jpg';
+                    }
+                }
+                imgTag.src = url;
+                imgContainer.style.display = 'block';
+            } else {
+                imgContainer.style.display = 'none';
             }
-        }
-        imgTag.src = url;
-        imgContainer.style.display = 'block';
-    } else {
-        imgContainer.style.display = 'none';
-    }
 
-    const modal = document.getElementById('dynamicModal');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-        
+            const modal = document.getElementById('dynamicModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
         document.getElementById('openHistory').onclick = () => openDynamicModal(contentData.history);
 
         function closeModal() {
@@ -130,4 +137,5 @@
 
     <script src="logic.js"></script>
 </body>
+
 </html>

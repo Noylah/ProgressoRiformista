@@ -88,7 +88,7 @@ async function inviaLog(azione, dettagli = "") {
     try {
         const { data: { session } } = await _supabase.auth.getSession();
         const username = session?.user?.email ? session.user.email.split('@')[0].toUpperCase() : "SISTEMA";
-        const messaggioFormattato = `🦅 *Pactum Patriae*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
+        const messaggioFormattato = `🦅 *Progresso Riformista*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
         await _supabase.functions.invoke('send-telegram-messaggio', {
             body: { messaggio: messaggioFormattato },
             headers: { Authorization: `Bearer ${session?.access_token}` }
@@ -229,7 +229,7 @@ async function caricaProposte(nome) {
     data.forEach(p => {
         const c = col[p.stato] || '#888';
         const li = document.createElement('li');
-        li.style.cssText = "background:rgba(255,255,255,0.02); border:1px solid rgba(212,175,55,0.08); padding:14px; border-radius:12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; list-style:none;";
+        li.style.cssText = "background:rgba(255,255,255,0.02); border:1px solid rgba(50,162,224,0.08); padding:14px; border-radius:12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; list-style:none;";
         
         li.innerHTML = `
             <div style="display:flex; align-items:center; gap:15px; flex-grow:1; min-width:0;">
@@ -237,7 +237,7 @@ async function caricaProposte(nome) {
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                 </div>
                 <div style="overflow:hidden; padding-right:10px;">
-                    <a href="${p.link_documento}" target="_blank" style="color:#ffffff; text-decoration:none; font-weight:600; font-size:0.9rem; display:block; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; transition:0.2s;" onmouseover="this.style.color='#d4af37'" onmouseout="this.style.color='#fff'">${p.titolo}</a>
+                    <a href="${p.link_documento}" target="_blank" style="color:#ffffff; text-decoration:none; font-weight:600; font-size:0.9rem; display:block; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; transition:0.2s;" onmouseover="this.style.color='#32a2e0'" onmouseout="this.style.color='#fff'">${p.titolo}</a>
                     <span style="font-size:0.65rem; color:#666; text-transform:uppercase; letter-spacing:0.8px; font-weight:700;">${new Date(p.data_proposta).toLocaleDateString('it-IT')}</span>
                 </div>
             </div>
@@ -250,7 +250,7 @@ async function caricaProposte(nome) {
                         <option value="Rifiutata" ${p.stato === 'Rifiutata' ? 'selected' : ''} style="background:#1a1a1a; color:#e74c3c;">RIFIUTATA</option>
                     </select>
                     <div style="display:flex; gap:6px;">
-                        <button onclick="preparaModificaProposta(${p.id}, '${p.titolo.replace(/'/g, "\\'")}', '${p.link_documento}', '${p.data_proposta}')" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); width:32px; height:32px; border-radius:8px; color:#888; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s;" onmouseover="this.style.color='#d4af37'; this.style.borderColor='#d4af37'" onmouseout="this.style.color='#888'; this.style.borderColor='rgba(255,255,255,0.1)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg></button>
+                        <button onclick="preparaModificaProposta(${p.id}, '${p.titolo.replace(/'/g, "\\'")}', '${p.link_documento}', '${p.data_proposta}')" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); width:32px; height:32px; border-radius:8px; color:#888; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s;" onmouseover="this.style.color='#32a2e0'; this.style.borderColor='#32a2e0'" onmouseout="this.style.color='#888'; this.style.borderColor='rgba(255,255,255,0.1)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"></path></svg></button>
                         <button onclick="eliminaProposta(${p.id})" style="background:rgba(231,76,60,0.05); border:1px solid rgba(231,76,60,0.2); width:32px; height:32px; border-radius:8px; color:#e74c3c; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s;" onmouseover="this.style.background='rgba(231,76,60,0.15)'" onmouseout="this.style.background='rgba(231,76,60,0.05)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
                     </div>
                 ` : `<span style="color:${c}; font-size:0.7rem; font-weight:900; text-transform:uppercase; border:1px solid ${c}40; padding:6px 14px; border-radius:8px; background:${c}10; letter-spacing:0.5px;">${p.stato}</span>`}
@@ -299,7 +299,7 @@ async function salvaModificaProposta(id) {
 
     const btn = document.getElementById('btn-proposta-azione');
     btn.innerText = "AGGIUNGI PROPOSTA";
-    btn.style.background = "#d4af37";
+    btn.style.background = "#32a2e0";
     btn.onclick = aggiungiProposta;
     
     document.getElementById('nuovaPropostaTitolo').value = '';

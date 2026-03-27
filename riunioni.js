@@ -31,7 +31,7 @@ function creaRigaPuntoGenerica(containerId, contenuto = "", stato = "") {
     
     div.innerHTML = `
         <input type="text" value="${contenuto}" class="minimal-input odg-text-input" style="flex:1; margin:0; font-size:0.85rem;" placeholder="Descrizione o Proposta...">
-        <button type="button" onclick="promptLink(this)" style="background:none; border:1px solid #d4af37; color:#d4af37; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:0.7rem;">🔗</button>
+        <button type="button" onclick="promptLink(this)" style="background:none; border:1px solid #32a2e0; color:#32a2e0; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:0.7rem;">🔗</button>
         <div class="tag-selector" style="display:flex; gap:3px;">
             <span class="tag-opt ${stato === 'APPROVATA' ? 'active green' : ''}" onclick="setTag(this, 'APPROVATA')">A</span>
             <span class="tag-opt ${stato === 'RESPINTA' ? 'active red' : ''}" onclick="setTag(this, 'RESPINTA')">R</span>
@@ -97,7 +97,7 @@ async function inviaOdGTelegram(data, presidiata, odgRaw) {
     const mesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
     const dataF = `${dObj.getDate()} ${mesi[dObj.getMonth()]} ${dObj.getFullYear()}`;
     const puntiPuntati = odgRaw.split('\n').filter(r => r.trim() !== "").map(r => `• ${r.trim()}`).join('\n');
-    const messaggio = `🦅 <b>Pactum Patriae</b>\nᴏʀᴅɪɴᴇ ᴅᴇʟ ɢɪᴏʀɴᴏ\n\n🏛 <b>ᴅᴀᴛᴀ:</b> ${dataF}\n👤 <b>ᴘʀᴇꜱɪᴇᴅᴜᴛᴀ ᴅᴀ:</b> ${escapeHTML(presidiata)}\n\n📝 <b>ᴘᴜɴᴛɪ ᴅɪ ᴅɪꜱᴄᴜꜱꜱɪᴏɴᴇ:</b>\n${puntiPuntati}`;
+    const messaggio = `🦅 <b>Progresso Riformista</b>\nᴏʀᴅɪɴᴇ ᴅᴇʟ ɢɪᴏʀɴᴏ\n\n🏛 <b>ᴅᴀᴛᴀ:</b> ${dataF}\n👤 <b>ᴘʀᴇꜱɪᴇᴅᴜᴛᴀ ᴅᴀ:</b> ${escapeHTML(presidiata)}\n\n📝 <b>ᴘᴜɴᴛɪ ᴅɪ ᴅɪꜱᴄᴜꜱꜱɪᴏɴᴇ:</b>\n${puntiPuntati}`;
     await _supabase.functions.invoke('send-telegram-messaggio', { body: { messaggio, parse_mode: 'HTML', chat_id: TELEGRAM_CHAT_ID } });
 }
 
@@ -112,7 +112,7 @@ async function inviaResocontoTelegram(data, presidiata, odgRaw) {
         let emoji = stato === 'APPROVATA' ? '🟢' : stato === 'RESPINTA' ? '🔴' : stato === 'SOSPESA' ? '🟡' : '🔹';
         res += `• ${emoji} ${testo}${stato ? ` (<b>${stato}</b>)` : ''}\n`;
     });
-    const messaggio = `🦅 <b>Pactum Patriae</b>\nʀᴇꜱᴏᴄᴏɴᴛᴏ ʀɪᴜɴɪᴏɴᴇ\n\n🏛 <b>ᴅᴀᴛᴀ:</b> ${dataF}\n👤 <b>ᴘʀᴇꜱɪᴇᴅᴜᴛᴀ ᴅᴀ:</b> ${escapeHTML(presidiata)}\n\n📝 <b>ᴇꜱɪᴛᴏ ᴘᴜɴᴛɪ ᴅɪꜱᴄᴜꜱꜱɪ:</b>\n${res}`;
+    const messaggio = `🦅 <b>Progresso Riformista</b>\nʀᴇꜱᴏᴄᴏɴᴛᴏ ʀɪᴜɴɪᴏɴᴇ\n\n🏛 <b>ᴅᴀᴛᴀ:</b> ${dataF}\n👤 <b>ᴘʀᴇꜱɪᴇᴅᴜᴛᴀ ᴅᴀ:</b> ${escapeHTML(presidiata)}\n\n📝 <b>ᴇꜱɪᴛᴏ ᴘᴜɴᴛɪ ᴅɪꜱᴄᴜꜱꜱɪ:</b>\n${res}`;
     await _supabase.functions.invoke('send-telegram-messaggio', { body: { messaggio, parse_mode: 'HTML', chat_id: TELEGRAM_CHAT_ID } });
 }
 
@@ -151,7 +151,7 @@ async function fetchRiunioni() {
         tr.style.cursor = 'pointer';
         tr.onclick = () => toggleRow(`details-${r.id}`);
         tr.innerHTML = `
-            <td><span style="color:${r.stato === 'odg' ? '#0088cc' : '#d4af37'}; margin-right:5px;">●</span>${r.data}</td>
+            <td><span style="color:${r.stato === 'odg' ? '#0088cc' : '#32a2e0'}; margin-right:5px;">●</span>${r.data}</td>
             <td>${r.presidiata_da}</td>
             <td style="text-align: center;">${r.stato === 'odg' ? '<span class="badge-tag blue">ODG</span>' : ''}</td>
             <td style="text-align: center; font-size:0.7rem; opacity:0.6;">Dettagli</td>
@@ -166,15 +166,15 @@ async function fetchRiunioni() {
         details.style.display = 'none';
         details.innerHTML = `
             <td colspan="5">
-                <div style="padding:15px; border-left:2px solid #d4af37; background:rgba(0,0,0,0.2); margin:5px 0;">
-                    <div style="margin-bottom:10px;"><strong style="color:#d4af37; font-size:0.7rem;">PUNTI:</strong><br>
+                <div style="padding:15px; border-left:2px solid #32a2e0; background:rgba(0,0,0,0.2); margin:5px 0;">
+                    <div style="margin-bottom:10px;"><strong style="color:#32a2e0; font-size:0.7rem;">PUNTI:</strong><br>
                         ${odgPunti.map(p => {
                             let [t, s] = p.split(' | ');
                             let tag = s ? ` <span class="badge-tag ${s === 'APPROVATA' ? 'green' : s === 'RESPINTA' ? 'red' : 'yellow'}">${s}</span>` : '';
                             return `<div style="margin:4px 0; font-size:0.8rem;">• ${t}${tag}</div>`;
                         }).join('')}
                     </div>
-                    <div><strong style="color:#d4af37; font-size:0.7rem;">PRESENTI:</strong><br>
+                    <div><strong style="color:#32a2e0; font-size:0.7rem;">PRESENTI:</strong><br>
                         <div style="display:flex; flex-wrap:wrap; gap:5px; margin-top:5px;">
                             ${r.presenti.map(n => `<span class="badge-status active" style="font-size:0.65rem;">${n}</span>`).join('')}
                         </div>

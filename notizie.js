@@ -48,7 +48,7 @@ async function inviaLog(azione, dettagli = "") {
         const { data: { session } } = await _supabase.auth.getSession();
         const username = session?.user?.email ? session.user.email.split('@')[0].toUpperCase() : "Sistema/Sconosciuto";
 
-        const messaggioFormattato = `🦅 *Pactum Patriae*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
+        const messaggioFormattato = `🦅 *Progresso Riformista*\nɴᴜᴏᴠᴏ ʟᴏɢ ꜱɪᴛᴏ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
 
         await _supabase.functions.invoke('send-telegram-messaggio', {
             body: { messaggio: messaggioFormattato },
@@ -98,7 +98,7 @@ async function caricaNotizie() {
     tbody.innerHTML = notizie.map(n => {
         return `
             <tr data-id="${n.id}" class="draggable-row" onclick="openDynamicModal('${n.id}')">
-                <td style="cursor: grab; width: 40px; text-align: center; color: #d4af37; font-size: 1.2rem;">☰</td>
+                <td style="cursor: grab; width: 40px; text-align: center; color: #32a2e0; font-size: 1.2rem;">☰</td>
                 <td style="text-align: left; font-weight: 600;">${n.titolo}</td>
                 <td style="text-align: center;"><span class="badge-mini">${n.badge || '-'}</span></td>
                 <td style="text-align: right;">

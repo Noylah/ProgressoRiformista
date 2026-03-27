@@ -101,7 +101,7 @@ async function caricaTutteLeProposte() {
                 <td style="text-align:right;">
                     <div style="display:flex; justify-content:flex-end; gap:8px; align-items:center;">
                         <span style="font-size:0.7rem; color:#555;">${dataFormattata}</span>
-                        <button onclick="apriValutazione(${p.id}, '${p.stato}', '${p.titolo.replace(/'/g, "\\'")}', '${p.feedback_direzione || ""}')" style="padding:6px 12px; border-radius:4px; font-weight:700; font-size:0.6rem; cursor:pointer; border:1px solid rgba(212, 175, 55, 0.4); background:rgba(212, 175, 55, 0.1); color:#d4af37;">MODIFICA</button>
+                        <button onclick="apriValutazione(${p.id}, '${p.stato}', '${p.titolo.replace(/'/g, "\\'")}', '${p.feedback_direzione || ""}')" style="padding:6px 12px; border-radius:4px; font-weight:700; font-size:0.6rem; cursor:pointer; border:1px solid rgba(50, 162, 224, 0.4); background:rgba(50, 162, 224, 0.1); color:#32a2e0;">MODIFICA</button>
                         <button onclick="eliminaProposta(${p.id}, '${p.titolo.replace(/'/g, "\\'")}')" style="padding:6px; border-radius:4px; cursor:pointer; border:1px solid rgba(231, 76, 60, 0.3); background:transparent; color:#e74c3c;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
                     </div>
                 </td>
@@ -227,7 +227,7 @@ async function inviaLog(azione, dettagli = "") {
     try {
         const { data: { session } } = await _supabase.auth.getSession();
         const username = session?.user?.email ? session.user.email.split('@')[0].toUpperCase() : "SISTEMA";
-        const messaggioFormattato = `🦅 *Pactum Patriae*\nʟᴏɢ ɢᴇsᴛɪᴏɴᴇ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
+        const messaggioFormattato = `🦅 *Progresso Riformista*\nʟᴏɢ ɢᴇsᴛɪᴏɴᴇ\n\n👤 ᴏᴘᴇʀᴀᴛᴏʀᴇ: ${username}\n📝 ᴀᴢɪᴏɴᴇ: ${azione}\n\n📖 ᴅᴇᴛᴛᴀɢʟɪ: ${dettagli}`;
         await _supabase.functions.invoke('send-telegram-messaggio', {
             body: { messaggio: messaggioFormattato }
         });

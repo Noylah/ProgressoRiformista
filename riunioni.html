@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <script>
-        (function() {
+        (function () {
             if (sessionStorage.getItem('staffAccess') !== 'true') {
                 window.location.replace('login.html');
             }
@@ -11,21 +12,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ᴀʀᴄʜɪᴠɪᴏ ʀɪᴜɴɪᴏɴɪ • Progresso Riformista</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;1,600&family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;1,600&family=Public+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-staff.css">
     <link rel="icon" href="img/favicon.png" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body class="staff-body">
     <div class="dashboard-wrapper">
         <aside class="side-panel">
             <div class="panel-top">
-                <img src="img/LogoPP.jpg" alt="Logo" class="panel-logo">
+                <img src="img/LogoPR.png" alt="Logo" class="panel-logo">
                 <span class="panel-title">Progresso Riformista</span>
                 <span class="panel-subtitle">Dashboard Staff</span>
             </div>
-            
+
             <nav class="panel-menu">
                 <a href="proposte.html" class="panel-link">
                     <span class="dot"></span> Proposte Personali
@@ -66,33 +70,55 @@
                 </div>
             </header>
 
-            <div id="riunioneFormContainer" style="display: none; margin-bottom: 25px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(50,162,224,0.3); backdrop-filter: blur(10px);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h3 style="color: #32a2e0; margin: 0; font-family: 'Crimson Pro', serif; font-size: 1.2rem;">✧ Registra Nuovo Verbale</h3>
-        <button onclick="toggleRiunioneForm()" style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; font-size: 1.2rem;">✕</button>
-    </div>
-    
-    <div style="margin-bottom: 15px;">
-    <span class="tiny-label" style="display:block; margin-bottom:5px;">Suggerimenti: Proposte in Attesa</span>
-    <div id="suggerimentiProposte" style="display:flex; flex-wrap:wrap; gap:8px; background:rgba(0,0,0,0.2); padding:10px; border-radius:6px; border:1px solid rgba(255,255,255,0.05);"></div>
-</div>
+            <div id="riunioneFormContainer"
+                style="display: none; margin-bottom: 25px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(50,162,224,0.3); backdrop-filter: blur(10px);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="color: #32a2e0; margin: 0; font-family: 'Crimson Pro', serif; font-size: 1.2rem;">✧
+                        Registra Nuovo Verbale</h3>
+                    <button onclick="toggleRiunioneForm()"
+                        style="background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; font-size: 1.2rem;">✕</button>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <div style="flex: 1;">
+                        <span class="tiny-label">Data Riunione</span>
+                        <input type="date" id="dataRiunione" class="minimal-input"
+                            style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px; border-radius: 5px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <span class="tiny-label">Presieduta da</span>
+                        <input type="text" id="presidiataDa" class="minimal-input" placeholder="Nome del Presidente..."
+                            style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px; border-radius: 5px;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <span class="tiny-label" style="display:block; margin-bottom:5px;">Suggerimenti: Proposte in
+                        Attesa</span>
+                    <div id="suggerimentiProposte"
+                        style="display:flex; flex-wrap:wrap; gap:8px; background:rgba(0,0,0,0.2); padding:10px; border-radius:6px; border:1px solid rgba(255,255,255,0.05);">
+                    </div>
+                </div>
 
-<div class="presence-box" style="margin-bottom: 20px;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span class="tiny-label">Punti Ordine del Giorno</span>
-        <button type="button" class="btn-action-dash save" onclick="aggiungiPuntoNuovo()" style="width:auto; padding:5px 10px;">+ AGGIUNGI PUNTO</button>
-    </div>
-    <div id="nuovoOdgContainer"></div>
-</div>
-    
-    <h4 style="color: #32a2e0; margin-bottom: 12px; font-size: 0.9rem; text-transform: uppercase;">Appello Consiglieri</h4>
-    <div id="listaAppello" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px;"></div>
+                <div class="presence-box" style="margin-bottom: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <span class="tiny-label">Punti Ordine del Giorno</span>
+                        <button type="button" class="btn-action-dash save" onclick="aggiungiPuntoNuovo()"
+                            style="width:auto; padding:5px 10px;">+ AGGIUNGI PUNTO</button>
+                    </div>
+                    <div id="nuovoOdgContainer"></div>
+                </div>
 
-    <div style="display: flex; gap: 10px; margin-top: 15px;">
-        <button class="btn-gold-action" onclick="salvaRiunione()" style="flex: 1; padding: 15px;">SALVA VERBALE</button>
-        <button class="btn-gold-action" onclick="salvaComeOdG()" style="flex: 1; padding: 15px; background: #0088cc; border-color: #0088cc;">SALVA COME ODG</button>
-    </div>
-</div>
+                <h4 style="color: #32a2e0; margin-bottom: 12px; font-size: 0.9rem; text-transform: uppercase;">Appello
+                    Consiglieri</h4>
+                <div id="listaAppello" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px;"></div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button class="btn-gold-action" onclick="salvaRiunione()" style="flex: 1; padding: 15px;">SALVA
+                        VERBALE</button>
+                    <button class="btn-gold-action" onclick="salvaComeOdG()"
+                        style="flex: 1; padding: 15px; background: #0088cc; border-color: #0088cc;">SALVA COME
+                        ODG</button>
+                </div>
+            </div>
 
             <section class="glass-table-card">
                 <div class="table-scroll">
@@ -107,7 +133,7 @@
                             </tr>
                         </thead>
                         <tbody id="riunioni-data-body">
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </section>
@@ -122,34 +148,36 @@
         }
     </script>
     <div id="editModal" class="modal-overlay" style="display:none;">
-    <div class="modal-card">
-        <button onclick="chiudiModal()" class="close-btn">&times;</button>
-        
-        <div class="modal-head">
-            <h3>Modifica Verbale</h3>
-            <p>Aggiorna i dettagli e le decisioni della seduta</p>
-        </div>
+        <div class="modal-card">
+            <button onclick="chiudiModal()" class="close-btn">&times;</button>
 
-        <div class="modal-form">
-            <input type="hidden" id="editId"> 
-            
-            <div class="form-row">
-                <input type="date" id="editData" class="minimal-input">
-                <input type="text" id="editPresidiata" class="minimal-input" placeholder="Presieduta da...">
+            <div class="modal-head">
+                <h3>Modifica Verbale</h3>
+                <p>Aggiorna i dettagli e le decisioni della seduta</p>
             </div>
 
-            <div class="presence-box">
-                <span class="tiny-label">Decisioni O.D.G. (Tagga i punti)</span>
-                <div id="editOdgContainer"></div> </div>
+            <div class="modal-form">
+                <input type="hidden" id="editId">
 
-            <div class="presence-box">
-                <span class="tiny-label">Appello Consiglieri</span>
-                <div id="editListaAppello" class="minimal-pills"></div>
+                <div class="form-row">
+                    <input type="date" id="editData" class="minimal-input">
+                    <input type="text" id="editPresidiata" class="minimal-input" placeholder="Presieduta da...">
+                </div>
+
+                <div class="presence-box">
+                    <span class="tiny-label">Decisioni O.D.G. (Tagga i punti)</span>
+                    <div id="editOdgContainer"></div>
+                </div>
+
+                <div class="presence-box">
+                    <span class="tiny-label">Appello Consiglieri</span>
+                    <div id="editListaAppello" class="minimal-pills"></div>
+                </div>
+
+                <button class="save-btn" onclick="salvaModificaCompleta()">Salva Modifiche</button>
             </div>
-
-            <button class="save-btn" onclick="salvaModificaCompleta()">Salva Modifiche</button>
         </div>
     </div>
-</div>
 </body>
+
 </html>

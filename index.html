@@ -63,9 +63,9 @@
         </div>
     </section>
 
-    <div id="dynamicModal" class="modal">
+    <div id="dynamicModal" class="modal" role="dialog" aria-labelledby="modalName" aria-modal="true">
         <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
+            <span class="close-button" onclick="closeModal()">×</span>
 
             <div id="modalImageContainer" style="display: none; margin-bottom: 25px;">
                 <img id="modalImage" src="https://images.weserv.nl/?url=${encodeURIComponent(n.immagine_url)}"
@@ -73,7 +73,9 @@
             </div>
 
             <span class="modal-badge" id="modalBadge">BADGE</span>
+
             <h2 id="modalName">Titolo</h2>
+
             <div id="modalBody" class="lore-text-box"></div>
         </div>
     </div>
